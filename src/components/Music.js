@@ -173,7 +173,7 @@ const Music = () => {
 
     const updateTime = () => setCurrentTime(audio.currentTime);
     const updateDuration = () => setDuration(audio.duration);
-    
+
     audio.addEventListener('timeupdate', updateTime);
     audio.addEventListener('loadedmetadata', updateDuration);
     audio.addEventListener('ended', nextTrack);
@@ -206,17 +206,16 @@ const Music = () => {
   const selectTrack = (index) => {
     setCurrentTrack(index);
     setShowPlaylist(false);
-    // Auto-play the selected track
     setTimeout(() => {
       const audio = audioRef.current;
       if (audio) {
         audio.play().then(() => {
           setIsPlaying(true);
-        }).catch((error) => {
-          console.log('Auto-play prevented by browser:', error);
+        }).catch(() => {
+          // Auto-play prevented by browser
         });
       }
-    }, 100); // Small delay to ensure audio element is ready
+    }, 100);
   };
 
   const formatTime = (time) => {
@@ -321,7 +320,7 @@ const Music = () => {
               Music Creations
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              A collection of original compositions spanning electronic, ambient, and experimental genres. 
+              A collection of original compositions spanning electronic, ambient, and experimental genres.
               Each track tells a story through sound, blending technology with emotion.
             </p>
           </motion.div>
@@ -390,7 +389,7 @@ const Music = () => {
               >
                 ⏮️
               </motion.button>
-              
+
               <motion.button
                 className="neumorphism-button w-14 h-14 rounded-full flex items-center justify-center text-xl bg-gradient-to-r from-gradient-purple to-gradient-blue text-white"
                 onClick={togglePlay}
@@ -399,7 +398,7 @@ const Music = () => {
               >
                 {isPlaying ? '⏸️' : '▶️'}
               </motion.button>
-              
+
               <motion.button
                 className="neumorphism-button w-10 h-10 rounded-full flex items-center justify-center text-lg"
                 onClick={nextTrack}
@@ -443,9 +442,8 @@ const Music = () => {
               {tracks.map((track, index) => (
                 <motion.div
                   key={track.id}
-                  className={`neumorphism p-4 rounded-xl cursor-pointer transition-all duration-300 ${
-                    index === currentTrack ? 'ring-2 ring-gradient-purple shadow-lg' : ''
-                  }`}
+                  className={`neumorphism p-4 rounded-xl cursor-pointer transition-all duration-300 ${index === currentTrack ? 'ring-2 ring-gradient-purple shadow-lg' : ''
+                    }`}
                   onClick={() => selectTrack(index)}
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
@@ -502,9 +500,8 @@ const Music = () => {
                 {tracks.map((track, index) => (
                   <motion.div
                     key={track.id}
-                    className={`neumorphism p-6 rounded-2xl cursor-pointer transition-all duration-300 ${
-                      index === currentTrack ? 'ring-2 ring-gradient-purple' : ''
-                    }`}
+                    className={`neumorphism p-6 rounded-2xl cursor-pointer transition-all duration-300 ${index === currentTrack ? 'ring-2 ring-gradient-purple' : ''
+                      }`}
                     onClick={() => selectTrack(index)}
                     whileHover={{ scale: 1.02, y: -5 }}
                     whileTap={{ scale: 0.98 }}
